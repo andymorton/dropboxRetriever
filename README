@@ -1,0 +1,37 @@
+README
+
+What is this app?
+----------------------------------------
+
+This app was developed to take attachments from email and place them in a folder,
+located on the dropbox system, using the file system.
+What it morphed into was a powerful file processor....
+
+
+Quick start
+----------------------------------------
+All to follow...
+
+Building
+----------------------------------------
+Ensure all libaries are there in the lib folder and run the build script:
+
+ant -f build.xml
+
+This will build and test the dropbox retriever.
+
+A list of all libraries used should be in the lib folder.
+
+
+Testing
+----------------------------------------
+All to follow
+
+Running
+----------------------------------------
+
+Something should go in here..
+
+Notes...
+----------------------------------------
+No notes yet.
