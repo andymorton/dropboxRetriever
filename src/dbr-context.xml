@@ -32,6 +32,87 @@
     <property name="pass" value="pa55w0rd" />
     <property name="ssl" value="true" />
     <property name="workingDirectory" value="/temp" />
+    <property name="filters">
+        <list>
+            <ref bean="validFileFilterIn" />
+            <ref bean="pdfConvertor" />
+            <ref bean="filenameNormaliser" />
+            <ref bean="validFileFilter" />
+        </list>
+    </property>
+    
+    
+    <!-- only allow from gmail.ac
+    <property name="blackListDomains">
+        <list>
+            <value>yahoo.com</value>
+        </list>
+    </property>
+   -->
+     <property name="whiteListDomains">
+        <list>
+            <value>gmail.com</value>
+        </list>
+    </property>
+    
+    <!-- error handler -->
+    <property name="exceptionHandler" ref="errorHandler" />
+    
+    
+    
+    
  </bean>
+ 
+ <!-- this allows any emails to be forwarded or replied to with the error and email attached -->
+ <bean id="errorHandler" class="com.morty.dropbox.retriever.excpt.impl.DropBoxRetrieverEmailExceptionHandler" >
+     <property name="host" value="smtp.gmail.com"/>
+     <property name="user" value="username@gmail.com" />
+     <property name="pass" value="pa55w0rd" />
+     <property name="adminEmail" value="bob@home.com"/>
+     <property name="replyTo" value="false"/>
+     <property name="stopProcessing" value="true" />
+ </bean>
+
+<bean id="validFileFilter" class="com.morty.dropbox.retriever.filters.impl.ValidFileTypeFilter">
+    <property name="validTypes">
+        <list>
+            <value>pdf</value>
+        </list>
+    </property>
+</bean>
+<!-- only allow certain file types in -->
+<bean id="validFileFilterIn" class="com.morty.dropbox.retriever.filters.impl.ValidFileTypeFilter">
+    <property name="validTypes">
+        <list>
+            <value>pdf</value>
+            <value>odt</value>
+            <value>doc</value>
+            <value>docx</value>
+            <value>ppt</value>
+            <value>pptx</value>
+        </list>
+    </property>
+</bean>
+
+<!-- PDF Convertor bean-->
+<bean id="pdfConvertor" class="com.morty.dropbox.retriever.filters.impl.PdfDocumentConversionFilter">
+    <property name="workingDirectory" value="C:\\temp"/>
+    <property name="officeHome" value="C:\\Program Files (x86)\\OpenOffice.org 3" />
+    <property name="filePattern" value=".*\.(doc|docx|odt|ppt|pptx)" />
+</bean>
+
+<!-- takes away the spaces in a filename -->
+<bean id="filenameNormaliser" class="com.morty.dropbox.retriever.filters.impl.FileNameNormaliseFilter" />
+
+
+<!-- For filter testing in a list -->
+<bean id="filterList" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="pdfConvertor" />
+            <ref bean="filenameNormaliser" />                
+        </list>
+    </constructor-arg>
+</bean>
 
 </beans>
