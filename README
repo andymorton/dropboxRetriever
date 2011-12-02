@@ -10,7 +10,8 @@ What it morphed into was a powerful file processor....
 
 Quick start
 ----------------------------------------
-All to follow...
+Build, compile and configure for an email account.
+Deliver it to a folder with no filters to see the attachments come into the file system.
 
 Building
 ----------------------------------------
@@ -18,20 +19,31 @@ Ensure all libaries are there in the lib folder and run the build script:
 
 ant -f build.xml
 
-This will build and test the dropbox retriever.
-
+This will build the dropbox retriever.
 A list of all libraries used should be in the lib folder.
 
 
 Testing
 ----------------------------------------
-All to follow
+This is quite difficult - especially given the environment requirements.
+If you have an email system, I suggest using a test email account, and a test dropbox folder.
 
 Running
 ----------------------------------------
 
-Something should go in here..
+This is done using the run.bat/run.sh file. 
+The program (DropBoxRetrieverRunner) takes one argument of a spring context file. 
+The program will run each configured retriever component, applying filters in sequence.
+If there is a problem, you can configure the exception handler to do something.
+
+There is an email exception handler provided, which will email the admin or reply to the sender
+of the failed email.
+
+The email component allows domains and addresses to be blacklisted and whitelisted.
+
+
 
 Notes...
 ----------------------------------------
-No notes yet.
+There are some issues with the pdf convertor, jodconvertor, but these relate to OpenOffice.
+For file/directory processing the test classes will allow the filters to be tested.

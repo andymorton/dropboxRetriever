@@ -7,7 +7,7 @@
     <target name="clean-and-test" depends="test-clean,test-init">
         
 		 <!-- Run the podcast against the testpack
-       <java classname="com.morty.podcast.writer.PodCastCreationRunner"
+       <java classname="com.morty.dropbox.retriever.DropBoxRetrieverRunner"
            dir="${basedir}/dist"
            failonerror="true"
            classpathref="test.classpath"
@@ -16,28 +16,10 @@
        </java>
        -->
        
-       <!-- Compare the files generated and fail build if different.
-	  <antcall target="compareFiles"/>
-	  -->
-		 
+     	 
     </target>
 
-	<target name="generateCheckSums">
-		<condition property="filesAreSame" value="true">
-            <filesmatch file1="${testpack.masterxml}" file2="${test.dir}/${test.generatedxml}"/> 
-         </condition>
-		<echo message="Success?[${filesAreSame}]" />
-	</target>
-
 	
-	<target name="compareFiles" depends="generateCheckSums,reportFailure" if="filesAreSame">
-		<echo message="Test completed Successfully"/>
-	</target>
-	
-	<!-- fail the build -->
-	<target name="reportFailure" unless="filesAreSame">
-		<fail message="Generated Files are different from master..."/>
-	</target>
 	
     <target name="test-init">
         <mkdir dir="${test.dir}"/>
