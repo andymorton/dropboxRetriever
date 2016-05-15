@@ -28,6 +28,9 @@ public abstract class DropBoxRetrieverComponent
 
     //Specify the filters on this component
     protected List m_filters;
+    
+    //Do we deliver files?
+    protected boolean m_deliver = true;
 
     //Specify the way that exceptions are handled.
     protected DropBoxRetrieverExceptionHandler m_exceptionHandler;
@@ -76,6 +79,11 @@ public abstract class DropBoxRetrieverComponent
         this.m_workingDirectory = m_workingDirectory;
     }
 
+    
+    public void setDeliverFiles(boolean deliver)
+    {
+        m_deliver = deliver;
+    }
 
 
     /*
@@ -105,7 +113,7 @@ public abstract class DropBoxRetrieverComponent
         //filter the files
         files = filterFiles(files);
         //finally delivery
-        deliverFiles(files);
+        if(m_deliver)deliverFiles(files);
         //cleanup
         cleanup();
         //Printout the files that have been removed
@@ -161,7 +169,7 @@ public abstract class DropBoxRetrieverComponent
     /*
      * Prints out which files were removed from the filter...
      */
-    private void printReport(Map files)
+    protected void printReport(Map files)
     {
         m_logger.info("======================================================");
         m_logger.info("Files removed by filters");
